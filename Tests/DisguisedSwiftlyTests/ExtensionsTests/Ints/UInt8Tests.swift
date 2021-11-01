@@ -32,8 +32,6 @@ final class UInt8Tests: XCTestCase {
         
         testingInt.setb0(0)
         testingInt.setb1(71)
-        
-        print(testingInt)
 
         XCTAssertEqual(testingInt.b0, 0)
         XCTAssertEqual(testingInt.b1, 1)
