@@ -90,3 +90,7 @@ iOSInjectionProject/
 Packages
 xcuserdata
 *.xcodeproj
+
+### Swiftlint
+
+swiftlint.result.json

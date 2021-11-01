@@ -1,0 +1,38 @@
+name: Testing
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: Testing app
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install dependecies
+        run: | 
+          gem install bundler
+          bundle install 
+      - name: Testing iOS app
+        run: |
+          bundle exec fastlane tests
+  lint: 
+    name: Linting App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install dependecies
+        run: | 
+          gem install bundler
+          bundle install 
+      - name: Testing iOS app
+        run: |
+          bundle exec fastlane lint
+      - name: Print raport
+        run: | 
+          cat swiftlint.result.json
