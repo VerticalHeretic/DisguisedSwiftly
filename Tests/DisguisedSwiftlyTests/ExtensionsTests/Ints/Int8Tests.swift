@@ -10,7 +10,7 @@ import XCTest
 
 final class Int8Tests: XCTestCase {
 
-    var testingInt : Int8 = 0
+    var testingInt: Int8 = 0
 
     override func setUp() {
         testingInt = 0b00000011
@@ -29,14 +29,14 @@ final class Int8Tests: XCTestCase {
 
     func testIntSettingBits() throws {
         XCTAssertEqual(testingInt, 3)
-        
-        testingInt = testingInt.setb0(0)
-        testingInt = testingInt.setb1(1)
+
+        testingInt.setb0(0)
+        testingInt.setb1(1)
 
         XCTAssertEqual(testingInt.b0, 0)
         XCTAssertEqual(testingInt.b1, 1)
         XCTAssertEqual(testingInt, 2)
-        
+
         testingInt = 0b01111111
         XCTAssertEqual(testingInt, 127)
     }

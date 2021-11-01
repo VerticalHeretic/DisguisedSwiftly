@@ -15,6 +15,7 @@ Extension that adds a few additional functionalities to Int8:
 - Byte indexed subscript
 */
 extension Int8 {
+
     /// Perform a bit pattern truncating conversion to UInt8
     public var toU8: UInt8 {return UInt8(bitPattern: self)}
     /// Perform a bit pattern truncating conversion to Int8
@@ -56,118 +57,135 @@ extension Int8 {
 
     /// Get bit 0 value
     public var b0: Int8 {
-        return ( (self.toU8 & (0x1 << 0)) >> 0 ).to8
-    }
-    /// Set bit 0 and return a new Int
-    public func setb0(_ bit: Int) -> Int8 {
-        let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 0)) | (nv.toU8 << 0) ).to8
+        return ((self.toU8 & (0x1 << 0)) >> 0).to8
     }
 
-    /// Set bit 0 and return a new Int
-    public func setb0(_ bit: Int8) -> Int8 {
+    /// Sets the bit 0 of the Int8 to given bit
+    public mutating func setb0(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 0)) | (nv.toU8 << 0) ).to8
+        self = ((self.toU8 & ~(0x1 << 0)) | (nv.toU8 << 0)).to8
     }
+
+    /// Sets the bit 0 of the Int8 to given bit
+    public mutating func setb0(_ bit: Int8) {
+        let nv = bit != 0 ? 1 : 0
+        self = ((self.toU8 & ~(0x1 << 0)) | (nv.toU8 << 0)).to8
+    }
+
     /// Get bit 1 value
     public var b1: Int8 {
-        return ( (self.toU8 & (0x1 << 1)) >> 1 ).to8
-    }
-    /// Set bit 1 and return a new Int
-    public func setb1(_ bit: Int) -> Int8 {
-        let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 1)) | (nv.toU8 << 1) ).to8
+        return ((self.toU8 & (0x1 << 1)) >> 1).to8
     }
 
-    /// Set bit 1 and return a new Int
-    public func setb1(_ bit: Int8) -> Int8 {
+    /// Sets the bit 1 of the Int8 to given bit
+    public mutating func setb1(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 1)) | (nv.toU8 << 1) ).to8
+        self = ((self.toU8 & ~(0x1 << 1)) | (nv.toU8 << 1)).to8
+    }
+
+    /// Sets the bit 1 of the Int8 to given bit
+    public mutating func setb1(_ bit: Int8) {
+        let nv = bit != 0 ? 1 : 0
+        self = ((self.toU8 & ~(0x1 << 1)) | (nv.toU8 << 1)).to8
     }
 
     /// Get bit 2 value
     public var b2: Int8 {
-        return ( (self.toU8 & (0x1 << 2)) >> 2 ).to8
+        return ((self.toU8 & (0x1 << 2)) >> 2).to8
     }
-    /// Set bit 2 and return a new Int
-    public func setb2(_ bit: Int) -> Int8 {
+
+    /// Sets the bit 2 of the Int8 to given bit
+    public mutating func setb2(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 2)) | (nv.toU8 << 2) ).to8
+        self = ((self.toU8 & ~(0x1 << 2)) | (nv.toU8 << 2)).to8
     }
-    /// Set bit 2 and return a new Int
-    public func setb2(_ bit: Int8) -> Int8 {
+    /// Sets the bit 2 of the Int8 to given bit
+    public mutating func setb2(_ bit: Int8) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 2)) | (nv.toU8 << 2) ).to8
+        self = ((self.toU8 & ~(0x1 << 2)) | (nv.toU8 << 2)).to8
     }
     /// Get bit 3 value
     public var b3: Int8 {
-        return ( (self.toU8 & (0x1 << 3)) >> 3 ).to8
+        return ((self.toU8 & (0x1 << 3)) >> 3).to8
     }
-    /// Set bit 3 and return a new Int
-    public func setb3(_ bit: Int) -> Int8 {
+
+    /// Sets the bit 3 of the Int8 to given bit
+    public mutating func setb3(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 3)) | (nv.toU8 << 3) ).to8
+        self = ((self.toU8 & ~(0x1 << 3)) | (nv.toU8 << 3) ).to8
     }
-    /// Set bit 3 and return a new Int
-    public func setb3(_ bit: Int8) -> Int8 {
+
+    /// Sets the bit 0 of the Int8 to given bit
+    public mutating func setb3(_ bit: Int8) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 3)) | (nv.toU8 << 3) ).to8
+        self = ((self.toU8 & ~(0x1 << 3)) | (nv.toU8 << 3) ).to8
     }
+
     /// Get bit 4 value
     public var b4: Int8 {
-        return ( (self.toU8 & (0x1 << 4)) >> 4 ).to8
+        return ((self.toU8 & (0x1 << 4)) >> 4 ).to8
     }
-    /// Set bit 4 and return a new Int
-    public func setb4(_ bit: Int) -> Int8 {
+
+    /// Sets the bit 4 of the Int8 to given bit
+    public mutating func setb4(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 4)) | (nv.toU8 << 4) ).to8
+        self = ((self.toU8 & ~(0x1 << 4)) | (nv.toU8 << 4) ).to8
     }
-    /// Set bit 4 and return a new Int
-    public func setb4(_ bit: Int8) -> Int8 {
+
+    /// Sets the bit 4 of the Int8 to given bit
+    public mutating func setb4(_ bit: Int8) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 4)) | (nv.toU8 << 4) ).to8
+        self = ((self.toU8 & ~(0x1 << 4)) | (nv.toU8 << 4)).to8
     }
+
     /// Get bit 5 value
     public var b5: Int8 {
-        return ( (self.toU8 & (0x1 << 5)) >> 5 ).to8
+        return ((self.toU8 & (0x1 << 5)) >> 5).to8
     }
-    /// Set bit 5 and return a new Int
-    public func setb5(_ bit: Int) -> Int8 {
+
+    /// Sets the bit 5 of the Int8 to given bit
+    public mutating func setb5(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 5)) | (nv.toU8 << 5) ).to8
+        self = ((self.toU8 & ~(0x1 << 5)) | (nv.toU8 << 5)).to8
     }
-    /// Set bit 5 and return a new Int
-    public func setb5(_ bit: Int8) -> Int8 {
+
+    /// Sets the bit 0 of the Int8 to given bit
+    public mutating func setb5(_ bit: Int8) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 5)) | (nv.toU8 << 5) ).to8
+        self = ((self.toU8 & ~(0x1 << 5)) | (nv.toU8 << 5)).to8
     }
     /// Get bit 6 value
     public var b6: Int8 {
-        return ( (self.toU8 & (0x1 << 6)) >> 6 ).to8
+        return ((self.toU8 & (0x1 << 6)) >> 6).to8
     }
-    /// Set bit 6 and return a new Int
-    public func setb6(_ bit: Int) -> Int8 {
+
+    /// Sets the bit 6 of the Int8 to given bit
+    public mutating func setb6(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 6)) | (nv.toU8 << 6) ).to8
+        self = ((self.toU8 & ~(0x1 << 6)) | (nv.toU8 << 6)).to8
     }
-    /// Set bit 6 and return a new Int
-    public func setb6(_ bit: Int8) -> Int8 {
+
+    /// Sets the bit 0 of the Int8 to given bit
+    public mutating func setb6(_ bit: Int8) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 6)) | (nv.toU8 << 6) ).to8
+        self = ((self.toU8 & ~(0x1 << 6)) | (nv.toU8 << 6)).to8
     }
+
     /// Get bit 7 value
     public var b7: Int8 {
-        return ( (self.toU8 & (0x1 << 7)) >> 7 ).to8
+        return ((self.toU8 & (0x1 << 7)) >> 7).to8
     }
-    /// Set bit 7 and return a new Int
-    public func setb7(_ bit: Int) -> Int8 {
+
+    /// Sets the bit 7 of the Int8 to given bit
+    public mutating func setb7(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 7)) | (nv.toU8 << 7) ).to8
+        self = ((self.toU8 & ~(0x1 << 7)) | (nv.toU8 << 7)).to8
     }
-    /// Set bit 7 and return a new Int
-    public func setb7(_ bit: Int8) -> Int8 {
+
+    /// Sets the bit 7 of the Int8 to given bit
+    public mutating func setb7(_ bit: Int8) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU8 & ~(0x1 << 7)) | (nv.toU8 << 7) ).to8
+        self = ((self.toU8 & ~(0x1 << 7)) | (nv.toU8 << 7)).to8
     }
 
     /// Subscript that returns or set one of the bytes of this integer
