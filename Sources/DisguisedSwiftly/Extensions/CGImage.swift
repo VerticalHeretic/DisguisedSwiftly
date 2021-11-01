@@ -5,10 +5,16 @@
 //  Created by Łukasz Stachnik on 26/10/2021.
 //
 
-import UIKit
+import CoreGraphics
 
 extension CGImage {
+    
     // swiftlint:disable large_tuple
+    /// Returns values of Red, Green and Blue for given position X and Y of the CGImage
+    /// - Parameters:
+    ///   - posY: X position on Image
+    ///   - posX: Y position on Image
+    /// - Returns: Red, Green and Blue values in Unsigned8Int values
     func rgbValuesForPixel(posY: Int, posX: Int) -> (r: UInt8, g: UInt8, b: UInt8)? {
         guard let pixelData = dataProvider?.data,
             let data = CFDataGetBytePtr(pixelData) else { return nil }
