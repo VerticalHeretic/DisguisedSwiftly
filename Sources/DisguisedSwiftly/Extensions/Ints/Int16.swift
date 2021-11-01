@@ -55,7 +55,7 @@ extension Int16 {
     /// Returns the size of this type (number of bytes)
     public static var size: Int {return MemoryLayout<Int16>.stride}
 
-    /// Get bit 0 value
+    /// Get bit 0 from value
     public var b0: Int16 {
         return ((self.toU16 & (0x1 << 0)) >> 0).to16
     }
@@ -66,7 +66,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 0)) | (nv.toU16 << 0)).to16
     }
 
-    /// Get bit 1 value
+    /// Get bit 1 from value
     public var b1: Int16 {
         return ((self.toU16 & (0x1 << 1)) >> 1).to16
     }
@@ -77,7 +77,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 1)) | (nv.toU16 << 1)).to16
     }
 
-    /// Get bit 2 value
+    /// Get bit 2 from value
     public var b2: Int16 {
         return ((self.toU16 & (0x1 << 2)) >> 2).to16
     }
@@ -88,7 +88,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 2)) | (nv.toU16 << 2)).to16
     }
 
-    /// Get bit 3 value
+    /// Get bit 3 from value
     public var b3: Int16 {
         return ((self.toU16 & (0x1 << 3)) >> 3).to16
     }
@@ -99,7 +99,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 3)) | (nv.toU16 << 3)).to16
     }
 
-    /// Get bit 4 value
+    /// Get bit 4 from value
     public var b4: Int16 {
         return ((self.toU16 & (0x1 << 4)) >> 4).to16
     }
@@ -110,7 +110,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 4)) | (nv.toU16 << 4)).to16
     }
 
-    /// Get bit 5 value
+    /// Get bit 5 from value
     public var b5: Int16 {
         return ((self.toU16 & (0x1 << 5)) >> 5).to16
     }
@@ -121,7 +121,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 5)) | (nv.toU16 << 5)).to16
     }
 
-    /// Get bit 6 value
+    /// Get bit 6 from value
     public var b6: Int16 {
         return ( (self.toU16 & (0x1 << 6)) >> 6 ).to16
     }
@@ -132,7 +132,7 @@ extension Int16 {
         self = ((self.toU16 & ~(0x1 << 6)) | (nv.toU16 << 6)).to16
     }
 
-    /// Get bit 7 value
+    /// Get bit 7 from value
     public var b7: Int16 {
         return ( (self.toU16 & (0x1 << 7)) >> 7 ).to16
     }

@@ -15,6 +15,7 @@ Extension that adds a few additional functionalities to Int32:
 - Byte indexed subscript
 */
 extension Int32 {
+    
     /// Perform a bit pattern truncating conversion to UInt8
     public var toU8: UInt8 {return UInt8(truncatingIfNeeded: self)}
     /// Perform a bit pattern truncating conversion to Int8
@@ -54,77 +55,92 @@ extension Int32 {
     /// Returns the size of this type (number of bytes)
     public static var size: Int {return MemoryLayout<Int32>.stride}
 
-    /// Get bit 0 value
+    /// Get bit 0 from value
     public var b0: Int32 {
-        return ( (self.toU32 & (0x1 << 0)) >> 0 ).to32
+        return ((self.toU32 & (0x1 << 0)) >> 0).to32
     }
-    /// Set bit 0 and return a new Int
-    public func setb0(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 0 of the Int32 to given bit
+    public mutating func setb0(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 0)) | (nv.toU32 << 0) ).to32
+        self = ((self.toU32 & ~(0x1 << 0)) | (nv.toU32 << 0)).to32
     }
-    /// Get bit 1 value
+    
+    /// Get bit 1 from value
     public var b1: Int32 {
-        return ( (self.toU32 & (0x1 << 1)) >> 1 ).to32
+        return ((self.toU32 & (0x1 << 1)) >> 1).to32
     }
-    /// Set bit 1 and return a new Int
-    public func setb1(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 1 of the Int32 to given bit
+    public mutating func setb1(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 1)) | (nv.toU32 << 1) ).to32
+        self = ((self.toU32 & ~(0x1 << 1)) | (nv.toU32 << 1)).to32
     }
-    /// Get bit 2 value
+    
+    /// Get bit 2 from value
     public var b2: Int32 {
-        return ( (self.toU32 & (0x1 << 2)) >> 2 ).to32
+        return ((self.toU32 & (0x1 << 2)) >> 2).to32
     }
-    /// Set bit 2 and return a new Int
-    public func setb2(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 2 of the Int32 to given bit
+    public mutating func setb2(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 2)) | (nv.toU32 << 2) ).to32
+        self = ((self.toU32 & ~(0x1 << 2)) | (nv.toU32 << 2)).to32
     }
-    /// Get bit 3 value
+    
+    /// Get bit 3 from value
     public var b3: Int32 {
-        return ( (self.toU32 & (0x1 << 3)) >> 3 ).to32
+        return ((self.toU32 & (0x1 << 3)) >> 3).to32
     }
-    /// Set bit 3 and return a new Int
-    public func setb3(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 3 of the Int32 to given bit
+    public mutating func setb3(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 3)) | (nv.toU32 << 3) ).to32
+        self = ((self.toU32 & ~(0x1 << 3)) | (nv.toU32 << 3)).to32
     }
-    /// Get bit 4 value
+    
+    /// Get bit 4 from value
     public var b4: Int32 {
-        return ( (self.toU32 & (0x1 << 4)) >> 4 ).to32
+        return ((self.toU32 & (0x1 << 4)) >> 4).to32
     }
-    /// Set bit 4 and return a new Int
-    public func setb4(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 4 of the Int32 to given bit
+    public mutating func setb4(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 4)) | (nv.toU32 << 4) ).to32
+        self = ((self.toU32 & ~(0x1 << 4)) | (nv.toU32 << 4)).to32
     }
-    /// Get bit 5 value
+    
+    /// Get bit 5 from value
     public var b5: Int32 {
-        return ( (self.toU32 & (0x1 << 5)) >> 5 ).to32
+        return ((self.toU32 & (0x1 << 5)) >> 5).to32
     }
-    /// Set bit 5 and return a new Int
-    public func setb5(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 5 of the Int32 to given bit
+    public mutating func setb5(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 5)) | (nv.toU32 << 5) ).to32
+        self = ((self.toU32 & ~(0x1 << 5)) | (nv.toU32 << 5)).to32
     }
-    /// Get bit 6 value
+    
+    /// Get bit 6 from value
     public var b6: Int32 {
-        return ( (self.toU32 & (0x1 << 6)) >> 6 ).to32
+        return ((self.toU32 & (0x1 << 6)) >> 6).to32
     }
-    /// Set bit 6 and return a new Int
-    public func setb6(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 6 of the Int32 to given bit
+    public mutating func setb6(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 6)) | (nv.toU32 << 6) ).to32
+        self = ((self.toU32 & ~(0x1 << 6)) | (nv.toU32 << 6)).to32
     }
-    /// Get bit 7 value
+    
+    /// Get bit 7 from value
     public var b7: Int32 {
         return ( (self.toU32 & (0x1 << 7)) >> 7 ).to32
     }
-    /// Set bit 7 and return a new Int
-    public func setb7(_ bit: Int) -> Int32 {
+    
+    /// Sets the bit 7 of the Int32 to given bit
+    public mutating func setb7(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return ( (self.toU32 & ~(0x1 << 7)) | (nv.toU32 << 7) ).to32
+        self = ((self.toU32 & ~(0x1 << 7)) | (nv.toU32 << 7)).to32
     }
 
     /// Subscript that returns or set one of the bytes of a Int32

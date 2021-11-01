@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PixelWithPosition {
+public struct PixelWithPosition {
     // swiftlint:disable identifier_name
     let x: Int
     // swiftlint:disable identifier_name

@@ -55,7 +55,7 @@ extension UInt8 {
     /// Returns the size of this type (number of bytes)
     public static var size: Int {return MemoryLayout<UInt8>.stride}
 
-    /// Get bit 0 value
+    /// Get bit 0 from value
     public var b0: UInt8 {
         return (self & (0x1 << 0)) >> 0
     }
@@ -72,7 +72,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 0)) | (nv.toU8 << 0)
     }
 
-    /// Get bit 1 value
+    /// Get bit 1 from value
     public var b1: UInt8 {
         return (self & (0x1 << 1)) >> 1
     }
@@ -89,7 +89,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 1)) | (nv.toU8 << 1)
     }
 
-    /// Get bit 2 value
+    /// Get bit 2 from value
     public var b2: UInt8 {
         return (self & (0x1 << 2)) >> 2
     }
@@ -106,7 +106,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 2)) | (nv.toU8 << 2)
     }
 
-    /// Get bit 3 value
+    /// Get bit 3 from value
     public var b3: UInt8 {
         return (self & (0x1 << 3)) >> 3
     }
@@ -123,7 +123,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 3)) | (nv.toU8 << 3)
     }
 
-    /// Get the bit number 4 fo the value
+    /// Get bit 4 from value
     public var b4: UInt8 {
         return (self & (0x1 << 4)) >> 4
     }
@@ -140,7 +140,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 4)) | (nv.toU8 << 4)
     }
 
-    /// Get bit 5 value
+    /// Get bit 5 from value
     public var b5: UInt8 {
         return (self & (0x1 << 5)) >> 5
     }
@@ -157,7 +157,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 5)) | (nv.toU8 << 5)
     }
 
-    /// Get bit 6 value
+    /// Get bit 6 from value
     public var b6: UInt8 {
         return (self & (0x1 << 6)) >> 6
     }
@@ -174,7 +174,7 @@ extension UInt8 {
         self = (self & ~(0x1 << 6)) | (nv.toU8 << 6)
     }
 
-    /// Get bit 7 value
+    /// Get bit 7 from value
     public var b7: UInt8 {
         return (self & (0x1 << 7)) >> 7
     }

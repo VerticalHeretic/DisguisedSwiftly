@@ -59,7 +59,7 @@ extension Int {
     /// Returns the size of this type (number of bytes)
     public static var size: Int {return MemoryLayout<Int>.stride}
 
-    /// Get bit 0 value
+    /// Get bit 0 from value
     public var b0: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 0)) >> 0)
     }
@@ -70,7 +70,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 0)) | (nv << 0))
     }
 
-    /// Get bit 1 value
+    /// Get bit 0 from value
     public var b1: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 1)) >> 1)
     }
@@ -81,7 +81,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 1)) | (nv << 1))
     }
 
-    /// Get bit 2 value
+    /// Get bit 2 from value
     public var b2: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 2)) >> 2)
     }
@@ -92,7 +92,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 2)) | (nv << 2))
     }
 
-    /// Get bit 3 value
+    /// Get bit 3 from value
     public var b3: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 3)) >> 3)
     }
@@ -103,7 +103,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 3)) | (nv << 3))
     }
 
-    /// Get bit 4 value
+    /// Get bit 4 from value
     public var b4: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 4)) >> 4)
     }
@@ -114,7 +114,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 4)) | (nv << 4))
     }
 
-    /// Get bit 5 value
+    /// Get bit 5 from value
     public var b5: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 5)) >> 5)
     }
@@ -125,7 +125,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 5)) | (nv << 5))
     }
 
-    /// Get bit 6 value
+    /// Get bit 6 from value
     public var b6: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 6)) >> 6)
     }
@@ -136,7 +136,7 @@ extension Int {
         self = Int(bitPattern: (UInt(bitPattern: self) & ~(0x1 << 6)) | (nv << 6))
     }
 
-    /// Get bit 7 value
+    /// Get bit 7 from value
     public var b7: Int {
         return Int(bitPattern: (UInt(bitPattern: self) & (0x1 << 7)) >> 7 )
     }

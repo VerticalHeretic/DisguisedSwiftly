@@ -15,6 +15,7 @@ Extension that adds a few additional functionalities to UInt64:
 - Byte indexed subscript
 */
 extension UInt64 {
+    
     /// Perform a bit pattern truncating conversion to UInt8
     public var toU8: UInt8 {return UInt8(truncatingIfNeeded: self)}
     /// Perform a bit pattern truncating conversion to Int8
@@ -54,77 +55,92 @@ extension UInt64 {
     /// Returns the size of this type (number of bytes)
     public static var size: Int {return MemoryLayout<UInt64>.stride}
 
-    /// Get bit 0 value
+    /// Get bit 0 from value
     public var b0: UInt64 {
         return (self & (0x1 << 0)) >> 0
     }
-    /// Set bit 0 and return a new UInt
-    public func setb0(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 0 of the UInt64 to given bit
+    public mutating func setb0(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 0)) | (nv.toU64 << 0)
+        self = (self & ~(0x1 << 0)) | (nv.toU64 << 0)
     }
-    /// Get bit 1 value
+    
+    /// Get bit 1 from value
     public var b1: UInt64 {
         return (self & (0x1 << 1)) >> 1
     }
-    /// Set bit 1 and return a new UInt
-    public func setb1(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 0 of the UInt64 to given bit
+    public mutating func setb1(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 1)) | (nv.toU64 << 1)
+        self = (self & ~(0x1 << 1)) | (nv.toU64 << 1)
     }
-    /// Get bit 2 value
+    
+    /// Get bit 2 from value
     public var b2: UInt64 {
         return (self & (0x1 << 2)) >> 2
     }
-    /// Set bit 2 and return a new UInt
-    public func setb2(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 2 of the UInt64 to given bit
+    public mutating func setb2(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 2)) | (nv.toU64 << 2)
+        self = (self & ~(0x1 << 2)) | (nv.toU64 << 2)
     }
-    /// Get bit 3 value
+    
+    /// Get bit 3 from value
     public var b3: UInt64 {
         return (self & (0x1 << 3)) >> 3
     }
-    /// Set bit 3 and return a new UInt
-    public func setb3(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 3 of the UInt64 to given bit
+    public mutating func setb3(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 3)) | (nv.toU64 << 3)
+        self = (self & ~(0x1 << 3)) | (nv.toU64 << 3)
     }
-    /// Get bit 4 value
+    
+    /// Get bit 4 from value
     public var b4: UInt64 {
         return (self & (0x1 << 4)) >> 4
     }
-    /// Set bit 4 and return a new UInt
-    public func setb4(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 4 of the UInt64 to given bit
+    public mutating func setb4(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 4)) | (nv.toU64 << 4)
+        self = (self & ~(0x1 << 4)) | (nv.toU64 << 4)
     }
-    /// Get bit 5 value
+    
+    /// Get bit 5 from value
     public var b5: UInt64 {
         return (self & (0x1 << 5)) >> 5
     }
-    /// Set bit 5 and return a new UInt
-    public func setb5(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 5 of the UInt64 to given bit
+    public mutating func setb5(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 5)) | (nv.toU64 << 5)
+        self = (self & ~(0x1 << 5)) | (nv.toU64 << 5)
     }
-    /// Get bit 6 value
+    
+    /// Get bit 6 from value
     public var b6: UInt64 {
         return (self & (0x1 << 6)) >> 6
     }
-    /// Set bit 6 and return a new UInt
-    public func setb6(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 6 of the UInt64 to given bit
+    public mutating func setb6(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 6)) | (nv.toU64 << 6)
+        self = (self & ~(0x1 << 6)) | (nv.toU64 << 6)
     }
-    /// Get bit 7 value
+    
+    /// Get bit 7 from value
     public var b7: UInt64 {
         return (self & (0x1 << 7)) >> 7
     }
-    /// Set bit 7 and return a new UInt
-    public func setb7(_ bit: Int) -> UInt64 {
+    
+    /// Sets the bit 7 of the UInt64 to given bit
+    public mutating func setb7(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
-        return (self & ~(0x1 << 7)) | (nv.toU64 << 7)
+        self = (self & ~(0x1 << 7)) | (nv.toU64 << 7)
     }
 
     /// Subscript that returns or set one of the bytes of a UInt64

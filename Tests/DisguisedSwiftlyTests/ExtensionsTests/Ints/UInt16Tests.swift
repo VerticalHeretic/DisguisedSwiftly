@@ -1,23 +1,23 @@
 //
-//  Int16Tests.swift
-//  
+//  UInt16Tests.swift
 //
-//  Created by Lukasz Stachnik on 01/11/2021.
+//
+//  Created by Łukasz Stachnik on 01/11/2021.
 //
 
 import XCTest
 @testable import DisguisedSwiftly
 
-final class Int16Tests: XCTestCase {
+final class UInt16Tests: XCTestCase {
 
-    var testingInt: Int16 = 0
+    var testingInt: UInt16 = 0
 
     override func setUp() {
-        testingInt = 0b00000010
+        testingInt = 0b00000011
     }
 
     func testIntGettingBits() throws {
-        XCTAssertEqual(testingInt.b0, 0, "0 bit should be equal 0")
+        XCTAssertEqual(testingInt.b0, 1, "0 bit should be equal 1")
         XCTAssertEqual(testingInt.b1, 1, "1 bit should be equal 1")
         XCTAssertEqual(testingInt.b2, 0, "2 bit should be equal 0")
         XCTAssertEqual(testingInt.b3, 0, "3 bit should be equal 0")
@@ -28,21 +28,21 @@ final class Int16Tests: XCTestCase {
     }
 
     func testIntSettingBits() throws {
+        XCTAssertEqual(testingInt, 3)
+
+        testingInt.setb0(0)
+        testingInt.setb1(71)
+
+        XCTAssertEqual(testingInt.b0, 0)
+        XCTAssertEqual(testingInt.b1, 1)
         XCTAssertEqual(testingInt, 2)
 
-        testingInt.setb0(1)
-        testingInt.setb1(0)
-
-        XCTAssertEqual(testingInt.b0, 1)
-        XCTAssertEqual(testingInt.b1, 0)
-        XCTAssertEqual(testingInt, 1)
-
-        testingInt = 0b0000111100001111
-        XCTAssertEqual(testingInt, 3855)
+        testingInt = 0b11111111
+        XCTAssertEqual(testingInt, 255)
     }
 
     func testIntSubscript() throws {
-        XCTAssertEqual(testingInt[0], 2) //00000010
+        XCTAssertEqual(testingInt[0], 3) //00000011
         XCTAssertEqual(testingInt[1], 0) //00000000
     }
 
