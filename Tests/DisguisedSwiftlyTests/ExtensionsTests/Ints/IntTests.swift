@@ -30,8 +30,8 @@ final class IntTests: XCTestCase {
     func testIntSettingBits() throws {
         XCTAssertEqual(testingInt, 1)
 
-        testingInt = testingInt.setb0(0)
-        testingInt = testingInt.setb1(1)
+        testingInt.setb0(0)
+        testingInt.setb1(1)
 
         XCTAssertEqual(testingInt.b0, 0)
         XCTAssertEqual(testingInt.b1, 1)

@@ -15,6 +15,7 @@ Extension that adds a few additional functionalities to UInt:
 - Byte indexed subscript
 */
 extension UInt {
+    
     /// Perform a bit pattern truncating conversion to UInt8
     public var toU8: UInt8 {return UInt8(truncatingIfNeeded: self)}
     /// Perform a bit pattern truncating conversion to Int8
