@@ -15,7 +15,7 @@ extension CGImage {
     ///   - posY: X position on Image
     ///   - posX: Y position on Image
     /// - Returns: Red, Green and Blue values in Unsigned8Int values
-    func rgbValuesForPixel(posY: Int, posX: Int) -> (r: UInt8, g: UInt8, b: UInt8)? {
+    public func rgbValuesForPixel(posY: Int, posX: Int) -> (r: UInt8, g: UInt8, b: UInt8)? {
         guard let pixelData = dataProvider?.data,
             let data = CFDataGetBytePtr(pixelData) else { return nil }
 
