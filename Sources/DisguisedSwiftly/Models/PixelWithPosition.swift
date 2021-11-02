@@ -9,9 +9,9 @@ import Foundation
 
 public struct PixelWithPosition {
     // swiftlint:disable identifier_name
-    let x: Int
+    public let x: Int
     // swiftlint:disable identifier_name
-    let y: Int
+    public let y: Int
 
-    var red: UInt8, green: UInt8, blue: UInt8
+    public var red: UInt8, green: UInt8, blue: UInt8
 }
