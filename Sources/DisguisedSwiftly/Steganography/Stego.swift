@@ -10,11 +10,7 @@ import UIKit
 
 public class Stego : StegoEncoder, StegoDecoder {
     
-    let imageModifier : ImageModifier
-    
-    init(imageModifier: ImageModifier) {
-        self.imageModifier = imageModifier
-    }
+    let imageModifier : ImageModifier = ImageModifier()
     
     public func decodeTextInImage(image: UIImage, finished: (Bool) -> ()) -> String {
         let pixelRBGValues = getRGBValuesWithPosionFromImage(image: image)

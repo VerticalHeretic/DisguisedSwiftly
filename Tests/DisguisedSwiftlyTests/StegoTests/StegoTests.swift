@@ -10,7 +10,7 @@ import XCTest
 
 final class StegoTests: XCTestCase {
 
-    let stegoTester = Stego(imageModifier: ImageModifier())
+    let stegoTester = Stego()
     
     func testEncodeTextInImage() {
         let size = CGSize(width: 100, height: 100)
