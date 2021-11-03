@@ -32,13 +32,22 @@ final class UInt8Tests: XCTestCase {
 
         testingInt.setb0(0)
         testingInt.setb1(71)
-
         XCTAssertEqual(testingInt.b0, 0)
         XCTAssertEqual(testingInt.b1, 1)
         XCTAssertEqual(testingInt, 2)
 
-        testingInt = 0b11111111
-        XCTAssertEqual(testingInt, 255)
+        testingInt = 0b00000000
+        XCTAssertEqual(testingInt, 0)
+        
+        testingInt.setb7(0)
+        testingInt.setb6(1)
+        testingInt.setb5(0)
+        testingInt.setb4(0)
+        testingInt.setb3(0)
+        testingInt.setb2(1)
+        testingInt.setb1(0)
+        testingInt.setb0(1)
+        XCTAssertEqual(testingInt, 69)
     }
 
     func testIntSubscript() throws {
