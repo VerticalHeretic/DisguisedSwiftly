@@ -10,6 +10,10 @@ import UIKit
 
 public class Stego : StegoEncoder, StegoDecoder {
     
+    public init() {
+        
+    }
+    
     let imageModifier : ImageModifier = ImageModifier()
     
     public func decodeTextInImage(image: UIImage, finished: (Bool) -> ()) -> String {
