@@ -1,3 +1,7 @@
+![Platform](https://img.shields.io/badge/Platforms-iOS-4E4E4E.svg?colorA=28a745)
+
+![testing/building](https://img.shields.io/github/workflow/status/lswarss/DisguisedSwiftly/Testing/main)
+
 # DisguisedSwiftly
 
 Package with all sorts of cryptographic functions and capabilities for Swift.
