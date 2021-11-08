@@ -1,14 +1,13 @@
 //
-//  File.swift
+//  Stego.swift
 //  
-//
 //  Created by Lukasz Stachnik on 03/11/2021.
 //
 
 import Foundation
 import UIKit
 
-public class Stego : StegoEncoder, StegoDecoder {
+public final class Stego : StegoEncoder, StegoDecoder {
     
     public init() {
         
@@ -29,7 +28,6 @@ public class Stego : StegoEncoder, StegoDecoder {
 
             if iterator == 7 {
                 switchByIndex(index: iterator, byte: &placeholder, to: pixel.red.b0)
-                print("➡️" + String(placeholder, radix: 2))
                 bytesArray.append(placeholder)
                 decodedText = String(decoding: bytesArray, as: UTF8.self)
                 iterator = 0
@@ -48,7 +46,7 @@ public class Stego : StegoEncoder, StegoDecoder {
 
     public func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> ()) -> UIImage? {
         
-        var imageRGBPixelValues = getRGBValuesWithPosionFromImage(image: image)
+        var imageRGBPixelValues = getRGBValuesWithPositionFromImageWithText(image: image, for: text.count + 1)
         var iteratorX = 0
         var iteratorY = 0
         let encodingText = text + "|"
@@ -56,7 +54,6 @@ public class Stego : StegoEncoder, StegoDecoder {
         let maxes = (len: imageRGBPixelValues.last?.x, height: imageRGBPixelValues.last?.y)
         
         for letter in encodedTextBitsArray {
-//            print("letter: \(pad(string: String(letter, radix: 2), toSize: 8))")
             for index in 0..<letter.bitWidth {
                 switch index {
                 case 0:
@@ -158,6 +155,35 @@ extension Stego {
 
        return pixelRBGValues
     }
+    
+    func getRGBValuesWithPositionFromImageWithText(image: UIImage, for textLen: Int) -> [PixelWithPosition] {
+       let heightInPoints = image.size.height
+       let heightInPixels = heightInPoints * image.scale
+
+       let widthInPoints = image.size.width
+       let widthInPixels = widthInPoints * image.scale
+
+       var pixelRBGValues: [PixelWithPosition] = []
+        // swiftlint:disable identifier_name
+       for y in 0..<Int(heightInPixels) {
+           // swiftlint:disable identifier_name
+          for x in 0..<Int(widthInPixels) {
+             if let cgImage = image.cgImage, let
+                    rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
+                 
+                let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
+                pixelRBGValues.append(pixelWithRgb)
+             }
+            
+              if pixelRBGValues.count == textLen {
+                  return pixelRBGValues
+              }
+          }
+       }
+
+       return pixelRBGValues
+    }
+
 
     
     private func changeLSB(letterBit: UInt8, pixelsArray: inout [PixelWithPosition], positionX: Int, positionY: Int) {
