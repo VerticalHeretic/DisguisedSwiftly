@@ -14,7 +14,9 @@ public final class Stego: StegoEncoder, StegoDecoder {
     }
 
     let imageModifier: ImageModifier = ImageModifier()
-
+    
+    //TODO: Optimize this function for bigger images, by going pixel by pixel instead of making the array on start
+    //TODO: Add documentation for it
     public func decodeTextInImage(image: UIImage, finished: (Bool) -> Void) -> String {
         let pixelRBGValues = getRGBValuesWithPosionFromImage(image: image)
         var decodedText = ""
@@ -45,6 +47,8 @@ public final class Stego: StegoEncoder, StegoDecoder {
         return decodedText
     }
 
+    //TODO: Optimize this function for bigger images, by going pixel by pixel instead of making the array on start
+    //TODO: Add documentation for it
     public func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> Void) -> UIImage? {
         let encodingText = text + "|"
         var imageRGBPixelValues = getRGBValuesWithPosionFromImageForText(image: image, text: encodingText)
