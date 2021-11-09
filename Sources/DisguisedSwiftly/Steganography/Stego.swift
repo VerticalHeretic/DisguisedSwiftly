@@ -136,6 +136,8 @@ extension Stego {
     func getRGBValuesWithPosionFromImage(image: UIImage) -> [PixelWithPosition] {
        let heightInPoints = image.size.height
        let widthInPoints = image.size.width
+        
+        print("Image size: \(widthInPoints)x\(heightInPoints)")
 
        var pixelRBGValues: [PixelWithPosition] = []
         // swiftlint:disable identifier_name
@@ -145,6 +147,7 @@ extension Stego {
              if let cgImage = image.cgImage, let
                     rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
                 let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
+                 print(pixelWithRgb.description)
                 pixelRBGValues.append(pixelWithRgb)
              }
           }
