@@ -25,7 +25,7 @@ final class StegoTests: XCTestCase {
     }
 
     func testDecodeTextInImage() {
-        let size = CGSize(width: 100, height: 100)
+        let size = CGSize(width: 3024, height: 4032)
         var testImage = UIGraphicsImageRenderer(size: size).image { rendererContext in
             UIColor.red.setFill()
             rendererContext.fill(CGRect(origin: .zero, size: size))

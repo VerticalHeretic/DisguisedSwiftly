@@ -30,6 +30,7 @@ public final class Stego: StegoEncoder, StegoDecoder {
                 switchByIndex(index: iterator, byte: &placeholder, to: pixel.red.b0)
                 bytesArray.append(placeholder)
                 decodedText = String(decoding: bytesArray, as: UTF8.self)
+                print(decodedText)
                 iterator = 0
                 placeholder = 0b00000000
             } else {
