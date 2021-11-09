@@ -45,11 +45,10 @@ public final class Stego: StegoEncoder, StegoDecoder {
     }
 
     public func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> Void) -> UIImage? {
-
-        var imageRGBPixelValues = getRGBValuesWithPosionFromImage(image: image)
+        let encodingText = text + "|"
+        var imageRGBPixelValues = getRGBValuesWithPosionFromImageForText(image: image, text: encodingText)
         var iteratorX = 0
         var iteratorY = 0
-        let encodingText = text + "|"
         let encodedTextBitsArray = encodingText.uint8Array()
         let maxes = (len: imageRGBPixelValues.last?.x, height: imageRGBPixelValues.last?.y)
 
@@ -147,9 +146,34 @@ extension Stego {
              if let cgImage = image.cgImage, let
                     rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
                 let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
-                 print(pixelWithRgb.description)
                 pixelRBGValues.append(pixelWithRgb)
              }
+          }
+       }
+
+       return pixelRBGValues
+    }
+    
+    func getRGBValuesWithPosionFromImageForText(image: UIImage, text: String) -> [PixelWithPosition] {
+       let heightInPoints = image.size.height
+       let widthInPoints = image.size.width
+        
+        print("Image size: \(widthInPoints)x\(heightInPoints)")
+        
+       var pixelRBGValues: [PixelWithPosition] = []
+        // swiftlint:disable identifier_name
+       for y in 0..<Int(heightInPoints) {
+           // swiftlint:disable identifier_name
+          for x in 0..<Int(widthInPoints) {
+             if let cgImage = image.cgImage, let
+                    rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
+                let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
+                pixelRBGValues.append(pixelWithRgb)
+             }
+              
+              if pixelRBGValues.count == text.count * 8 {
+                  return pixelRBGValues
+              }
           }
        }
 
