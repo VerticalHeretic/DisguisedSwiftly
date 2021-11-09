@@ -123,4 +123,3 @@ class ImageModifier {
         return UIImage(cgImage: newCGImage)
     }
 }
-

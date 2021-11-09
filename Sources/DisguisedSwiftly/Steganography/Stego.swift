@@ -7,15 +7,15 @@
 import Foundation
 import UIKit
 
-public final class Stego : StegoEncoder, StegoDecoder {
-    
+public final class Stego: StegoEncoder, StegoDecoder {
+
     public init() {
-        
+
     }
-    
-    let imageModifier : ImageModifier = ImageModifier()
-    
-    public func decodeTextInImage(image: UIImage, finished: (Bool) -> ()) -> String {
+
+    let imageModifier: ImageModifier = ImageModifier()
+
+    public func decodeTextInImage(image: UIImage, finished: (Bool) -> Void) -> String {
         let pixelRBGValues = getRGBValuesWithPosionFromImage(image: image)
         var decodedText = ""
         var iterator = 0
@@ -38,21 +38,21 @@ public final class Stego : StegoEncoder, StegoDecoder {
             }
 
         }
-        
+
         finished(true)
         decodedText.removeLast()
         return decodedText
     }
 
-    public func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> ()) -> UIImage? {
-        
-        var imageRGBPixelValues = getRGBValuesWithPositionFromImageWithText(image: image, for: text.count + 1)
+    public func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> Void) -> UIImage? {
+
+        var imageRGBPixelValues = getRGBValuesWithPosionFromImage(image: image)
         var iteratorX = 0
         var iteratorY = 0
         let encodingText = text + "|"
         let encodedTextBitsArray = encodingText.uint8Array()
         let maxes = (len: imageRGBPixelValues.last?.x, height: imageRGBPixelValues.last?.y)
-        
+
         for letter in encodedTextBitsArray {
             for index in 0..<letter.bitWidth {
                 switch index {
@@ -125,26 +125,23 @@ public final class Stego : StegoEncoder, StegoDecoder {
                 }
             }
         }
-        
+
         finished(true)
         return imageModifier.applyModifier(.stego, to: image, rgbValues: imageRGBPixelValues)
     }
 }
 
 extension Stego {
-    
+
     func getRGBValuesWithPosionFromImage(image: UIImage) -> [PixelWithPosition] {
        let heightInPoints = image.size.height
-       let heightInPixels = heightInPoints * image.scale
-
        let widthInPoints = image.size.width
-       let widthInPixels = widthInPoints * image.scale
 
        var pixelRBGValues: [PixelWithPosition] = []
         // swiftlint:disable identifier_name
-       for y in 0..<Int(heightInPixels) {
+       for y in 0..<Int(heightInPoints) {
            // swiftlint:disable identifier_name
-          for x in 0..<Int(widthInPixels) {
+          for x in 0..<Int(widthInPoints) {
              if let cgImage = image.cgImage, let
                     rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
                 let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
@@ -155,37 +152,7 @@ extension Stego {
 
        return pixelRBGValues
     }
-    
-    func getRGBValuesWithPositionFromImageWithText(image: UIImage, for textLen: Int) -> [PixelWithPosition] {
-       let heightInPoints = image.size.height
-       let heightInPixels = heightInPoints * image.scale
 
-       let widthInPoints = image.size.width
-       let widthInPixels = widthInPoints * image.scale
-
-       var pixelRBGValues: [PixelWithPosition] = []
-        // swiftlint:disable identifier_name
-       for y in 0..<Int(heightInPixels) {
-           // swiftlint:disable identifier_name
-          for x in 0..<Int(widthInPixels) {
-             if let cgImage = image.cgImage, let
-                    rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
-                 
-                let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
-                pixelRBGValues.append(pixelWithRgb)
-             }
-            
-              if pixelRBGValues.count == textLen {
-                  return pixelRBGValues
-              }
-          }
-       }
-
-       return pixelRBGValues
-    }
-
-
-    
     private func changeLSB(letterBit: UInt8, pixelsArray: inout [PixelWithPosition], positionX: Int, positionY: Int) {
        if let pixelPos = pixelsArray.firstIndex(where: { $0.x == positionX && $0.y == positionY}) {
           var newPixel = pixelsArray[pixelPos]
@@ -193,12 +160,12 @@ extension Stego {
           pixelsArray[pixelPos] = newPixel
        }
     }
-    
+
     /// Returns array of Bytes from Image for every pixel
     /// - Parameter imageData: Data from UIImage.pngData
     /// - Returns: Array of Bytes for every pixel in image
     private func getArrayOfBytesFromImage(imageData: NSData) -> [UInt8] {
-        
+
         // the number of elements:
         let count = imageData.length / MemoryLayout<Int8>.size
 
@@ -216,7 +183,7 @@ extension Stego {
 
         return byteArray
      }
-    
+
     private func pad(string: String, toSize: Int) -> String {
        var padded = string
        for _ in 0..<(toSize - string.count) {
@@ -224,7 +191,7 @@ extension Stego {
        }
        return padded
     }
-    
+
     private func switchByIndex(index: Int, byte: inout UInt8, to: UInt8) {
         switch index {
         case 0:

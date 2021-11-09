@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol StegoEncoder {
-    func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> ()) -> UIImage?
+    func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> Void) -> UIImage?
 }

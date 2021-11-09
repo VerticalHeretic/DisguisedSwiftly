@@ -42,11 +42,10 @@ final class UInt32Tests: XCTestCase {
     }
 
     func testIntSubscript() throws {
-        XCTAssertEqual(testingInt[0], 255) //11111111
-        XCTAssertEqual(testingInt[1], 255) //11111111
-        XCTAssertEqual(testingInt[2], 255) //11111111
-        XCTAssertEqual(testingInt[3], 255) //11111111
+        XCTAssertEqual(testingInt[0], 255) // 11111111
+        XCTAssertEqual(testingInt[1], 255) // 11111111
+        XCTAssertEqual(testingInt[2], 255) // 11111111
+        XCTAssertEqual(testingInt[3], 255) // 11111111
     }
-
 
 }

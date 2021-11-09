@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    
+
     /// Creates array of Int8 values for every character in String
     ///
     ///  **Example Usage**:

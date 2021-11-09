@@ -42,7 +42,7 @@ final class Int8Tests: XCTestCase {
     }
 
     func testIntSubscript() throws {
-        XCTAssertEqual(testingInt[0], 3) //00000011
+        XCTAssertEqual(testingInt[0], 3) // 00000011
     }
 
 }

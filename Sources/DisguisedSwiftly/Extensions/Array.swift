@@ -8,7 +8,7 @@
 import Foundation
 
 extension Array where Element: Equatable {
-    
+
     /// Replaces given element in array with new one
     /// - Parameters:
     ///   - element: Element in array to replace

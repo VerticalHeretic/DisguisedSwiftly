@@ -10,17 +10,17 @@ import XCTest
 
 final class ArrayExtensionsTests: XCTestCase {
 
-    var testingArray: Array<String> = []
+    var testingArray: [String] = []
 
     override func setUp() {
         testingArray =  ["Test1", "Test2", "Test3"]
     }
-    
+
     func testReplace() throws {
         XCTAssertEqual(testingArray, ["Test1", "Test2", "Test3"])
-        
+
         testingArray.replace("Test1", with: "TestReplaced")
-        
+
         XCTAssertEqual(testingArray, ["TestReplaced", "Test2", "Test3"])
         XCTAssertFalse(testingArray.replace("Test1", with: "TestReplaced"))
     }

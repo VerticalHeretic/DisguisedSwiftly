@@ -14,7 +14,7 @@ public struct PixelWithPosition {
     public let y: Int
 
     public var red: UInt8, green: UInt8, blue: UInt8
-    
+
     public init(x: Int, y: Int, red: UInt8, green: UInt8, blue: UInt8 ) {
         self.x = x
         self.y = y
