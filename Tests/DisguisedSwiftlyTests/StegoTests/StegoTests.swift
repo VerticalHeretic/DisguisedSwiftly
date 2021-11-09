@@ -31,29 +31,6 @@ final class StegoTests: XCTestCase {
         }!
     }
 
-    func testDecodeTextInImage() {
-        let size = CGSize(width: 3024, height: 4032)
-        var testImage = UIGraphicsImageRenderer(size: size).image { rendererContext in
-            UIColor.red.setFill()
-            rendererContext.fill(CGRect(origin: .zero, size: size))
-        }
-
-        testImage = stegoTester.encodeTextInImage(with: "test", image: testImage) { progress in
-            switch progress {
-            case .ended:
-                XCTAssertEqual(progress, StegoProgress.ended)
-            case .working:
-                break
-            case .failed:
-                XCTFail()
-            }
-        }!
-
-        XCTAssertEqual(stegoTester.decodeTextInImage(image: testImage, finished: { value in
-            XCTAssertTrue(value)
-        }), "test")
-    }
-
     func testGetRGBValuesWithPositionFromImage() {
         let size = CGSize(width: 100, height: 100)
         let testImage = UIGraphicsImageRenderer(size: size).image { rendererContext in

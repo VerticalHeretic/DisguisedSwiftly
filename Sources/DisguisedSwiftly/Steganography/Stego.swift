@@ -20,35 +20,6 @@ public final class Stego: StegoEncoder, StegoDecoder {
     }
 
     let imageModifier: ImageModifier = ImageModifier()
-
-    internal func decodeTextInImage(image: UIImage, finished: (Bool) -> Void) -> String {
-        let pixelRBGValues = getRGBValuesWithPosionFromImage(image: image)
-        var decodedText = ""
-        var iterator = 0
-        var bytesArray: [UInt8] = []
-        var placeholder: UInt8 = 0b00000000
-        for pixel in pixelRBGValues {
-            if decodedText.contains("|") {
-                break
-            }
-
-            if iterator == 7 {
-                switchByIndex(index: iterator, byte: &placeholder, to: pixel.red.b0)
-                bytesArray.append(placeholder)
-                decodedText = String(decoding: bytesArray, as: UTF8.self)
-                iterator = 0
-                placeholder = 0b00000000
-            } else {
-                switchByIndex(index: iterator, byte: &placeholder, to: pixel.red.b0)
-                iterator += 1
-            }
-
-        }
-
-        finished(true)
-        decodedText.removeLast()
-        return decodedText
-    }
     
     /// Decodes image encoded with text and retrunes the message
     /// - Parameters:

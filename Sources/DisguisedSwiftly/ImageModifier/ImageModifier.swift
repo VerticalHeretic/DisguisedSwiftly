@@ -92,11 +92,7 @@ class ImageModifier {
                     pixel.blue = pixelColor
                     pixel.green = pixelColor
                 case .stego:
-                    if index > rgbValues.count - 1{
-                        pixel.red = pixel.red
-                        pixel.blue = pixel.blue
-                        pixel.green = pixel.green
-                    } else {
+                    if index < rgbValues.count - 1 {
                         pixel.red = rgbValues[index].red
                         pixel.blue = rgbValues[index].blue
                         pixel.green = rgbValues[index].green
