@@ -8,7 +8,7 @@
 import CoreGraphics
 
 extension CGImage {
-    
+
     // swiftlint:disable large_tuple
     /// Returns values of Red, Green and Blue for given position X and Y of the CGImage
     /// - Parameters:

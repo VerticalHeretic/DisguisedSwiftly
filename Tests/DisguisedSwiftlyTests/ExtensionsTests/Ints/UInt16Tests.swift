@@ -42,8 +42,8 @@ final class UInt16Tests: XCTestCase {
     }
 
     func testIntSubscript() throws {
-        XCTAssertEqual(testingInt[0], 3) //00000011
-        XCTAssertEqual(testingInt[1], 0) //00000000
+        XCTAssertEqual(testingInt[0], 3) // 00000011
+        XCTAssertEqual(testingInt[1], 0) // 00000000
     }
 
 }

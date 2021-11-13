@@ -1,62 +1,89 @@
 //
-//  File.swift
+//  Stego.swift
 //  
-//
 //  Created by Lukasz Stachnik on 03/11/2021.
 //
 
 import Foundation
 import UIKit
 
-public class Stego : StegoEncoder, StegoDecoder {
-    
+public enum StegoProgress {
+    case ended
+    case working
+    case failed
+}
+
+public final class Stego: StegoEncoder, StegoDecoder {
+
     public init() {
-        
+
     }
-    
-    let imageModifier : ImageModifier = ImageModifier()
-    
-    public func decodeTextInImage(image: UIImage, finished: (Bool) -> ()) -> String {
-        let pixelRBGValues = getRGBValuesWithPosionFromImage(image: image)
+
+    let imageModifier: ImageModifier = ImageModifier()
+
+    /// Decodes image encoded with text and retrunes the message
+    /// - Parameters:
+    ///   - image: UIImage in which message is encoded
+    ///   - progress: Progress completion handler
+    /// - Returns: Decoded message from the image
+    public func decodeTextInImage(image: UIImage, progress: (StegoProgress) -> Void) -> String {
+        progress(.working)
+        let heightInPoints = image.size.height
+        let widthInPoints = image.size.width
+
         var decodedText = ""
         var iterator = 0
         var bytesArray: [UInt8] = []
         var placeholder: UInt8 = 0b00000000
-        for pixel in pixelRBGValues {
-            if decodedText.contains("|") {
-                break
-            }
 
-            if iterator == 7 {
-                switchByIndex(index: iterator, byte: &placeholder, to: pixel.red.b0)
-                print("➡️" + String(placeholder, radix: 2))
-                bytesArray.append(placeholder)
-                decodedText = String(decoding: bytesArray, as: UTF8.self)
-                iterator = 0
-                placeholder = 0b00000000
-            } else {
-                switchByIndex(index: iterator, byte: &placeholder, to: pixel.red.b0)
-                iterator += 1
-            }
+        // swiftlint:disable identifier_name
+        for y in 0..<Int(heightInPoints) {
+            // swiftlint:disable identifier_name
+            for x in 0..<Int(widthInPoints) {
+                if let cgImage = image.cgImage, let
+                    rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
 
+                    if decodedText.contains("|") {
+                        break
+                    }
+
+                    if iterator == 7 {
+                        switchByIndex(index: iterator, byte: &placeholder, to: rgbValue.r.b0)
+                        bytesArray.append(placeholder)
+                        decodedText = String(decoding: bytesArray, as: UTF8.self)
+                        iterator = 0
+                        placeholder = 0b00000000
+                    } else {
+                        switchByIndex(index: iterator, byte: &placeholder, to: rgbValue.r.b0)
+                        iterator += 1
+                    }
+                } else {
+                    progress(.failed)
+                }
+            }
         }
-        
-        finished(true)
+
         decodedText.removeLast()
+        progress(.ended)
         return decodedText
     }
 
-    public func encodeTextInImage(with text: String, image: UIImage, finished: (Bool) -> ()) -> UIImage? {
-        
-        var imageRGBPixelValues = getRGBValuesWithPosionFromImage(image: image)
+    /// Encodes message in image last bits of red color
+    /// - Parameters:
+    ///   - text: Text to encode in to image
+    ///   - image: Image in which to encode the text
+    ///   - progress: Progress in encoding the message completion handler
+    /// - Returns: Encoded with the text UIImage?
+    public func encodeTextInImage(with text: String, image: UIImage, progress: (StegoProgress) -> Void) -> UIImage? {
+        progress(.working)
+        let encodingText = text + "|"
+        var imageRGBPixelValues = getRGBValuesWithPosionFromImageForText(image: image, text: encodingText)
         var iteratorX = 0
         var iteratorY = 0
-        let encodingText = text + "|"
         let encodedTextBitsArray = encodingText.uint8Array()
         let maxes = (len: imageRGBPixelValues.last?.x, height: imageRGBPixelValues.last?.y)
-        
+
         for letter in encodedTextBitsArray {
-//            print("letter: \(pad(string: String(letter, radix: 2), toSize: 8))")
             for index in 0..<letter.bitWidth {
                 switch index {
                 case 0:
@@ -128,26 +155,23 @@ public class Stego : StegoEncoder, StegoDecoder {
                 }
             }
         }
-        
-        finished(true)
+
+        progress(.ended)
         return imageModifier.applyModifier(.stego, to: image, rgbValues: imageRGBPixelValues)
     }
 }
 
 extension Stego {
-    
-    func getRGBValuesWithPosionFromImage(image: UIImage) -> [PixelWithPosition] {
-       let heightInPoints = image.size.height
-       let heightInPixels = heightInPoints * image.scale
 
+    internal func getRGBValuesWithPosionFromImage(image: UIImage) -> [PixelWithPosition] {
+       let heightInPoints = image.size.height
        let widthInPoints = image.size.width
-       let widthInPixels = widthInPoints * image.scale
 
        var pixelRBGValues: [PixelWithPosition] = []
         // swiftlint:disable identifier_name
-       for y in 0..<Int(heightInPixels) {
+       for y in 0..<Int(heightInPoints) {
            // swiftlint:disable identifier_name
-          for x in 0..<Int(widthInPixels) {
+          for x in 0..<Int(widthInPoints) {
              if let cgImage = image.cgImage, let
                     rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
                 let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
@@ -159,7 +183,30 @@ extension Stego {
        return pixelRBGValues
     }
 
-    
+    internal func getRGBValuesWithPosionFromImageForText(image: UIImage, text: String) -> [PixelWithPosition] {
+       let heightInPoints = image.size.height
+       let widthInPoints = image.size.width
+
+       var pixelRBGValues: [PixelWithPosition] = []
+        // swiftlint:disable identifier_name
+       for y in 0..<Int(heightInPoints) {
+           // swiftlint:disable identifier_name
+          for x in 0..<Int(widthInPoints) {
+             if let cgImage = image.cgImage, let
+                    rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
+                let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
+                pixelRBGValues.append(pixelWithRgb)
+             }
+
+              if pixelRBGValues.count == text.count * 8 {
+                  return pixelRBGValues
+              }
+          }
+       }
+
+       return pixelRBGValues
+    }
+
     private func changeLSB(letterBit: UInt8, pixelsArray: inout [PixelWithPosition], positionX: Int, positionY: Int) {
        if let pixelPos = pixelsArray.firstIndex(where: { $0.x == positionX && $0.y == positionY}) {
           var newPixel = pixelsArray[pixelPos]
@@ -167,12 +214,12 @@ extension Stego {
           pixelsArray[pixelPos] = newPixel
        }
     }
-    
+
     /// Returns array of Bytes from Image for every pixel
     /// - Parameter imageData: Data from UIImage.pngData
     /// - Returns: Array of Bytes for every pixel in image
     private func getArrayOfBytesFromImage(imageData: NSData) -> [UInt8] {
-        
+
         // the number of elements:
         let count = imageData.length / MemoryLayout<Int8>.size
 
@@ -190,7 +237,7 @@ extension Stego {
 
         return byteArray
      }
-    
+
     private func pad(string: String, toSize: Int) -> String {
        var padded = string
        for _ in 0..<(toSize - string.count) {
@@ -198,7 +245,7 @@ extension Stego {
        }
        return padded
     }
-    
+
     private func switchByIndex(index: Int, byte: inout UInt8, to: UInt8) {
         switch index {
         case 0:

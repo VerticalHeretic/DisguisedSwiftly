@@ -104,7 +104,7 @@ extension Int8 {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU8 & ~(0x1 << 2)) | (nv.toU8 << 2)).to8
     }
-    
+
     /// Get bit 3 from value
     public var b3: Int8 {
         return ((self.toU8 & (0x1 << 3)) >> 3).to8
@@ -155,7 +155,7 @@ extension Int8 {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU8 & ~(0x1 << 5)) | (nv.toU8 << 5)).to8
     }
-    
+
     /// Get bit 6 from value
     public var b6: Int8 {
         return ((self.toU8 & (0x1 << 6)) >> 6).to8

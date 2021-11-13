@@ -15,7 +15,7 @@ Extension that adds a few additional functionalities to Int64:
 - Byte indexed subscript
 */
 extension Int64 {
-    
+
     /// Perform a bit pattern truncating conversion to UInt8
     public var toU8: UInt8 {return UInt8(truncatingIfNeeded: self)}
     /// Perform a bit pattern truncating conversion to Int8
@@ -59,84 +59,84 @@ extension Int64 {
     public var b0: Int64 {
         return ((self.toU64 & (0x1 << 0)) >> 0).to64
     }
-    
+
     /// Sets the bit 0 of the Int64 to given bit
     public mutating func setb0(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU64 & ~(0x1 << 0)) | (nv.toU64 << 0)).to64
     }
-    
+
     /// Get bit 1 from value
     public var b1: Int64 {
         return ((self.toU64 & (0x1 << 1)) >> 1).to64
     }
-    
+
     /// Sets the bit 1 of the Int64 to given bit
     public mutating func setb1(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU64 & ~(0x1 << 1)) | (nv.toU64 << 1)).to64
     }
-    
+
     /// Get bit 2 from value
     public var b2: Int64 {
         return ((self.toU64 & (0x1 << 2)) >> 2).to64
     }
-    
+
     /// Sets the bit 2 of the Int64 to given bit
     public mutating func setb2(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU64 & ~(0x1 << 2)) | (nv.toU64 << 2)).to64
     }
-    
+
     /// Get bit 3 from value
     public var b3: Int64 {
         return ( (self.toU64 & (0x1 << 3)) >> 3 ).to64
     }
-    
+
     /// Sets the bit 3 of the Int64 to given bit
     public mutating func setb3(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU64 & ~(0x1 << 3)) | (nv.toU64 << 3)).to64
     }
-    
+
     /// Get bit 4 from value
     public var b4: Int64 {
         return ( (self.toU64 & (0x1 << 4)) >> 4 ).to64
     }
-    
+
     /// Sets the bit 4 of the Int64 to given bit
     public mutating func setb4(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU64 & ~(0x1 << 4)) | (nv.toU64 << 4)).to64
     }
-    
+
     /// Get bit 5 from value
     public var b5: Int64 {
         return ( (self.toU64 & (0x1 << 5)) >> 5 ).to64
     }
-    
+
     /// Sets the bit 5 of the Int64 to given bit
     public mutating func setb5(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0
         self = ((self.toU64 & ~(0x1 << 5)) | (nv.toU64 << 5)).to64
     }
-    
+
     /// Get bit 6 from value
     public var b6: Int64 {
         return ( (self.toU64 & (0x1 << 6)) >> 6 ).to64
     }
-    
+
     /// Sets the bit 6 of the Int64 to given bit
     public func setb6(_ bit: Int) -> Int64 {
         let nv = bit != 0 ? 1 : 0
         return ( (self.toU64 & ~(0x1 << 6)) | (nv.toU64 << 6) ).to64
     }
-    
+
     /// Get bit 7 from value
     public var b7: Int64 {
         return ( (self.toU64 & (0x1 << 7)) >> 7 ).to64
     }
-    
+
     /// Sets the bit 7 of the Int64 to given bit
     public mutating func setb7(_ bit: Int) {
         let nv = bit != 0 ? 1 : 0

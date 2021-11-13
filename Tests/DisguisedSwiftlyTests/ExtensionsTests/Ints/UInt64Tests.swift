@@ -42,10 +42,10 @@ final class UInt64Tests: XCTestCase {
     }
 
     func testIntSubscript() throws {
-        XCTAssertEqual(testingInt[0], 87) //01010111
-        XCTAssertEqual(testingInt[1], 4) //00000100
-        XCTAssertEqual(testingInt[2], 0) //00000000
-        XCTAssertEqual(testingInt[3], 0) //00000000
+        XCTAssertEqual(testingInt[0], 87) // 01010111
+        XCTAssertEqual(testingInt[1], 4) // 00000100
+        XCTAssertEqual(testingInt[2], 0) // 00000000
+        XCTAssertEqual(testingInt[3], 0) // 00000000
     }
 
 }
