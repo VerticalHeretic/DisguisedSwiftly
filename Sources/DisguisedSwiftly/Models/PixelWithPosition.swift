@@ -14,7 +14,7 @@ public struct PixelWithPosition {
     public let y: Int
 
     public var red: UInt8, green: UInt8, blue: UInt8
-    
+
     var description: String {
         return "(\(x):\(y)), (r:\(red), g:\(green), b:\(blue))"
     }

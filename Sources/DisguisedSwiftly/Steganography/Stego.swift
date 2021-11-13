@@ -20,33 +20,33 @@ public final class Stego: StegoEncoder, StegoDecoder {
     }
 
     let imageModifier: ImageModifier = ImageModifier()
-    
+
     /// Decodes image encoded with text and retrunes the message
     /// - Parameters:
     ///   - image: UIImage in which message is encoded
     ///   - progress: Progress completion handler
     /// - Returns: Decoded message from the image
-    public func decodeTextInImage(image: UIImage, progress: (StegoProgress) -> ()) -> String {
+    public func decodeTextInImage(image: UIImage, progress: (StegoProgress) -> Void) -> String {
         progress(.working)
         let heightInPoints = image.size.height
         let widthInPoints = image.size.width
-        
+
         var decodedText = ""
         var iterator = 0
         var bytesArray: [UInt8] = []
         var placeholder: UInt8 = 0b00000000
-        
+
         // swiftlint:disable identifier_name
         for y in 0..<Int(heightInPoints) {
             // swiftlint:disable identifier_name
             for x in 0..<Int(widthInPoints) {
                 if let cgImage = image.cgImage, let
                     rgbValue = cgImage.rgbValuesForPixel(posY: y, posX: x) {
-                    
+
                     if decodedText.contains("|") {
                         break
                     }
-                    
+
                     if iterator == 7 {
                         switchByIndex(index: iterator, byte: &placeholder, to: rgbValue.r.b0)
                         bytesArray.append(placeholder)
@@ -62,19 +62,19 @@ public final class Stego: StegoEncoder, StegoDecoder {
                 }
             }
         }
-        
+
         decodedText.removeLast()
         progress(.ended)
         return decodedText
     }
-    
+
     /// Encodes message in image last bits of red color
     /// - Parameters:
     ///   - text: Text to encode in to image
     ///   - image: Image in which to encode the text
     ///   - progress: Progress in encoding the message completion handler
     /// - Returns: Encoded with the text UIImage?
-    public func encodeTextInImage(with text: String, image: UIImage, progress: (StegoProgress) -> ()) -> UIImage? {
+    public func encodeTextInImage(with text: String, image: UIImage, progress: (StegoProgress) -> Void) -> UIImage? {
         progress(.working)
         let encodingText = text + "|"
         var imageRGBPixelValues = getRGBValuesWithPosionFromImageForText(image: image, text: encodingText)
@@ -166,7 +166,7 @@ extension Stego {
     internal func getRGBValuesWithPosionFromImage(image: UIImage) -> [PixelWithPosition] {
        let heightInPoints = image.size.height
        let widthInPoints = image.size.width
-        
+
        var pixelRBGValues: [PixelWithPosition] = []
         // swiftlint:disable identifier_name
        for y in 0..<Int(heightInPoints) {
@@ -182,12 +182,11 @@ extension Stego {
 
        return pixelRBGValues
     }
-    
+
     internal func getRGBValuesWithPosionFromImageForText(image: UIImage, text: String) -> [PixelWithPosition] {
        let heightInPoints = image.size.height
        let widthInPoints = image.size.width
-        
-        
+
        var pixelRBGValues: [PixelWithPosition] = []
         // swiftlint:disable identifier_name
        for y in 0..<Int(heightInPoints) {
@@ -198,7 +197,7 @@ extension Stego {
                 let pixelWithRgb = PixelWithPosition(x: x, y: y, red: rgbValue.r, green: rgbValue.g, blue: rgbValue.b)
                 pixelRBGValues.append(pixelWithRgb)
              }
-              
+
               if pixelRBGValues.count == text.count * 8 {
                   return pixelRBGValues
               }

@@ -63,7 +63,7 @@ final class StegoTests: XCTestCase {
         let testPixelWithPositionArray2 = stegoTester.getRGBValuesWithPosionFromImage(image: testImage)
         XCTAssertEqual(testPixelWithPositionArray2.count, 12192768)
     }
-    
+
     func testGetRGBValuesWithPositionFromImageWithBiggerImagesWithText() {
         let sizeBigger = CGSize(width: 3024, height: 4032)
         let testImage = UIGraphicsImageRenderer(size: sizeBigger).image { rendererContext in
@@ -74,7 +74,7 @@ final class StegoTests: XCTestCase {
         let testPixelWithPositionArray2 = stegoTester.getRGBValuesWithPosionFromImageForText(image: testImage, text: "test")
         XCTAssertEqual(testPixelWithPositionArray2.count, 32)
     }
-    
+
     func testDecodeTextInImageSinglePixel() {
         let size = CGSize(width: 3024, height: 4032)
         var testImage = UIGraphicsImageRenderer(size: size).image { rendererContext in

@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol StegoDecoder {
-    func decodeTextInImage(image: UIImage, progress: (StegoProgress) -> ()) -> String
+    func decodeTextInImage(image: UIImage, progress: (StegoProgress) -> Void) -> String
 }
