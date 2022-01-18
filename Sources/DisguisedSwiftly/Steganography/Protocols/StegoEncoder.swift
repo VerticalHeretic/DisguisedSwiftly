@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+public typealias StegoEncodingResult = Result<UIImage?, Error>
+public typealias StegoEncodingCompletion = (StegoEncodingResult) -> Void
+
 protocol StegoEncoder {
-    func encodeTextInImage(with text: String, image: UIImage, progress: (StegoProgress) -> Void) -> UIImage?
+    func encodeTextInImage(with text: String, in image: UIImage, completion: @escaping StegoEncodingCompletion)
 }

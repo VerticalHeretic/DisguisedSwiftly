@@ -7,18 +7,13 @@
 import Foundation
 import UIKit
 
-public enum StegoProgress {
-    case ended
-    case working
-    case failed
+public enum StegoError: Error {
+    case failedDecoding
+    case failedEncoding
 }
 
 public final class Stego: StegoEncoder, StegoDecoder {
-
-    public init() {
-
-    }
-
+    
     let imageModifier: ImageModifier = ImageModifier()
 
     /// Decodes image encoded with text and retrunes the message
@@ -26,8 +21,7 @@ public final class Stego: StegoEncoder, StegoDecoder {
     ///   - image: UIImage in which message is encoded
     ///   - progress: Progress completion handler
     /// - Returns: Decoded message from the image
-    public func decodeTextInImage(image: UIImage, progress: (StegoProgress) -> Void) -> String {
-        progress(.working)
+    public func decodeTextInImage(in image: UIImage, completion: @escaping StegoDecodingCompletion) {
         let heightInPoints = image.size.height
         let widthInPoints = image.size.width
 
@@ -58,14 +52,13 @@ public final class Stego: StegoEncoder, StegoDecoder {
                         iterator += 1
                     }
                 } else {
-                    progress(.failed)
+                    completion(.failure(StegoError.failedDecoding))
                 }
             }
         }
 
         decodedText.removeLast()
-        progress(.ended)
-        return decodedText
+        completion(.success(decodedText))
     }
 
     /// Encodes message in image last bits of red color
@@ -74,8 +67,7 @@ public final class Stego: StegoEncoder, StegoDecoder {
     ///   - image: Image in which to encode the text
     ///   - progress: Progress in encoding the message completion handler
     /// - Returns: Encoded with the text UIImage?
-    public func encodeTextInImage(with text: String, image: UIImage, progress: (StegoProgress) -> Void) -> UIImage? {
-        progress(.working)
+    public func encodeTextInImage(with text: String, in image: UIImage, completion: @escaping StegoEncodingCompletion) {
         let encodingText = text + "|"
         var imageRGBPixelValues = getRGBValuesWithPosionFromImageForText(image: image, text: encodingText)
         var iteratorX = 0
@@ -155,9 +147,8 @@ public final class Stego: StegoEncoder, StegoDecoder {
                 }
             }
         }
-
-        progress(.ended)
-        return imageModifier.applyModifier(.stego, to: image, rgbValues: imageRGBPixelValues)
+        
+        completion(.success(imageModifier.applyModifier(.stego, to: image, rgbValues: imageRGBPixelValues)))
     }
 }
 

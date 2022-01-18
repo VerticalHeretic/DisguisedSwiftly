@@ -18,18 +18,22 @@ final class StegoTests: XCTestCase {
             UIColor.red.setFill()
             rendererContext.fill(CGRect(origin: .zero, size: size))
         }
-
-        testImage = stegoTester.encodeTextInImage(with: "test", image: testImage) { progress in
-            switch progress {
-            case .ended:
-                XCTAssertEqual(progress, StegoProgress.ended)
-            case .working:
-                break
-            case .failed:
+        
+        stegoTester.encodeTextInImage(with: "test", in: testImage) { result in
+            switch result {
+            case .success(let image):
+                guard let image = image else {
+                    XCTFail()
+                    return
+                }
+                
+                testImage = image
+            case .failure(_):
                 XCTFail()
             }
-        }!
+        }
     }
+
 
     func testGetRGBValuesWithPositionFromImage() {
         let size = CGSize(width: 100, height: 100)
@@ -37,7 +41,7 @@ final class StegoTests: XCTestCase {
             UIColor.red.setFill()
             rendererContext.fill(CGRect(origin: .zero, size: size))
         }
-
+        
         let testPixelWithPositionArray = stegoTester.getRGBValuesWithPosionFromImage(image: testImage)
         XCTAssertEqual(testPixelWithPositionArray.count, 10000)
     }
@@ -82,26 +86,27 @@ final class StegoTests: XCTestCase {
             rendererContext.fill(CGRect(origin: .zero, size: size))
         }
 
-        testImage = stegoTester.encodeTextInImage(with: "test", image: testImage) { progress in
-            switch progress {
-            case .ended:
-                XCTAssertEqual(progress, StegoProgress.ended)
-            case .working:
-                break
-            case .failed:
+        stegoTester.encodeTextInImage(with: "test", in: testImage) { result in
+            switch result {
+            case .success(let image):
+                guard let image = image else {
+                    XCTFail()
+                    return
+                }
+                
+                testImage = image
+            case .failure(_):
                 XCTFail()
             }
-        }!
-
-        XCTAssertEqual(stegoTester.decodeTextInImage(image: testImage, progress: { progress in
-            switch progress {
-            case .ended:
-                print("success")
-            case .working:
-                print("working")
-            case .failed:
+        }
+        
+        stegoTester.decodeTextInImage(in: testImage) { result in
+            switch result {
+            case .success(let message):
+                XCTAssertEqual(message, "test")
+            case .failure(_):
                 XCTFail()
             }
-        }), "test")
+        }
     }
 }

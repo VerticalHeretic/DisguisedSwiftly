@@ -9,15 +9,23 @@ For now it's mainly concentrated of steganography but new capabilities will be a
 
 ```swift
 let stego = Stego()
-
 let image = UIImage(named: "swift")
 
-let encodedImage = stego.encodeTextInImage(with text: "Swift is awesome", image: image, finished: { finished in
-    finished ? print("Ended encoding") : print("Didnt finish")
-})
+stego.encodeTextInImage(with: "Swift is awesome", in: image) { [weak self] result in
+    switch result {
+    case .success(let image):
+        self?.saveImage(image)
+    case .failure(let error):
+        self?.displayError(error)
+    }
+}
 
-
-let decodedText = stego?.decodeTextInImage(image: image, finished: { finished in
-    finished ? print("Ended encoding") : print("Didnt finish")
-})
+stego.decodeTextInImage(in: image) { [weak self] result in
+    switch result {
+    case .success(let message):
+        self?.displayMessage(message)
+    case .failure(_):
+        self?.displayError(error)
+    }
+}
 ```
