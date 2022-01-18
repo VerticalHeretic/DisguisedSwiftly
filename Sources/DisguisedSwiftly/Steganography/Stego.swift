@@ -14,13 +14,16 @@ public enum StegoError: Error {
 
 public final class Stego: StegoEncoder, StegoDecoder {
     
+    public init() {
+        
+    }
+    
     let imageModifier: ImageModifier = ImageModifier()
 
     /// Decodes image encoded with text and retrunes the message
     /// - Parameters:
     ///   - image: UIImage in which message is encoded
-    ///   - progress: Progress completion handler
-    /// - Returns: Decoded message from the image
+    ///   - completion: @escaping Result<String, Error>
     public func decodeTextInImage(in image: UIImage, completion: @escaping StegoDecodingCompletion) {
         let heightInPoints = image.size.height
         let widthInPoints = image.size.width
@@ -65,8 +68,7 @@ public final class Stego: StegoEncoder, StegoDecoder {
     /// - Parameters:
     ///   - text: Text to encode in to image
     ///   - image: Image in which to encode the text
-    ///   - progress: Progress in encoding the message completion handler
-    /// - Returns: Encoded with the text UIImage?
+    ///   - completion: @escaping Result<UIImage?, Error>
     public func encodeTextInImage(with text: String, in image: UIImage, completion: @escaping StegoEncodingCompletion) {
         let encodingText = text + "|"
         var imageRGBPixelValues = getRGBValuesWithPosionFromImageForText(image: image, text: encodingText)
@@ -259,5 +261,4 @@ extension Stego {
             break
         }
     }
-
 }
